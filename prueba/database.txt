@@ -12,4 +12,5 @@ CREATE TABLE alumnos(
 ;
 INSERT INTO alumnos (Nombre, Apellido, Edad, DNI) 
 VALUES
-    ('Santiago','Chamorro',18,46097928);
+    ('Santiago','Chamorro',18,46097928),
+    ('Gonzalo','Montenegro',17,12345678);
