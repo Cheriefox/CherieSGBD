@@ -1,0 +1,15 @@
+CREATE DATABASE bdEjemplo.py;
+USE bdEjemploPy;
+
+CREATE TABLE alumnos(
+    Id INT NOT NULL AUTO_INCREMENT,
+    Nombre VARCHAR(15) NOT NULL,
+    Apellido VARCHAR(15) NOT NULL,
+    Edad INT(10) NOT NULL,
+    DNI INT(8) NOT NULL,
+    PRIMARY KEY(Id)
+)
+;
+INSERT INTO alumnos (Nombre, Apellido, Edad, DNI) 
+VALUES
+    ('Santiago','Chamorro',18,46097928);
