@@ -71,16 +71,21 @@ class SqlFrame(ttk.Frame):
             showinfo("Error", f"Error al ejecutar la consulta: {err}")
     
     def mostrar_resultados(self, rows):
-        # Mostrar los resultados en el Treeview dentro de la misma pestaña
+        # Limpiar el Treeview antes de mostrar nuevos resultados
+        self.result_tree.delete(*self.result_tree.get_children())  # Elimina todas las filas actuales
+
         if not rows:
             showinfo("Resultado", "No se encontraron resultados.")
         else:
-            # Configurar las columnas dinámicamente según la cantidad de columnas en la consulta SELECT
-            self.result_tree["columns"] = [str(i) for i in range(len(rows[0]))]  # Creando columnas de acuerdo a los resultados
+            # Obtener los nombres de las columnas (usando description del cursor)
+            column_names = [desc[0] for desc in self.admin_db.db_cursor.description]
+
+            # Configurar las columnas dinámicamente según los nombres de las columnas en la consulta SELECT
+            self.result_tree["columns"] = column_names  # Usamos los nombres de las columnas
 
             # Configurar las cabeceras de las columnas
-            for col in self.result_tree["columns"]:
-                self.result_tree.heading(col, text=f"Columna {col}")  # Títulos genéricos
+            for col in column_names:
+                self.result_tree.heading(col, text=col)  # Usamos los nombres reales de las columnas
                 self.result_tree.column(col, stretch=True, anchor="w")  # Permitir que las columnas se estiren automáticamente
 
             # Insertar los datos en las filas
